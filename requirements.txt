@@ -1,0 +1,4 @@
+arrow==1.1.0
+pymongo==3.11.3
+PySimpleGUI==4.40.0
+requests==2.25.1
