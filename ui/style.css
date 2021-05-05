@@ -1,0 +1,162 @@
+:root {
+    background-color: #121212;
+    color: #cdccce;
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.intro {
+    display: flex;
+    /* display: none; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+input {
+    outline: none;
+    text-align: center;
+    background-color: #616161;
+    border: none;
+    border-radius: 4%;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 6px 8px;
+    cursor: pointer;
+    background-color: #1d1d1d;
+    color: #cdccce;
+    outline: none;
+}
+
+button:hover {
+    background-color: #1a1a1a;
+}
+
+.join {
+    border: none;
+    margin-top: 25px;
+    font-size: large;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.version {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.info {
+    padding: 10px;
+    position: absolute;
+    border-radius: 25%;
+    border: none;
+}
+
+.about {
+    bottom: 0;
+    right: 0;
+}
+
+.settings {
+    bottom: 0;
+    right: 45px;
+}
+
+.chat {
+    display: none;
+    padding: 16px;
+}
+
+#navbar {
+    overflow: hidden;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+.decor-text {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.main-view {
+    display: flex;
+    height: 90%;
+    position: fixed;
+    border-color: #ffffff;
+}
+
+.member-pane {
+    background-color: #333;
+    width: 250px;
+    border: 1px solid #616161;
+}
+
+#online {
+    border: 1px solid #616161;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.chat-pane {
+    background-color: #1d1d1d;
+    border: 1px solid #616161;
+    display: flex;
+    width: 78.2vw;
+    flex-direction: column;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: auto;
+}
+
+.msgs {
+    border: 1px solid #616161;
+}
+
+.member {
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 1px solid #616161;
+}
+
+.sendstation {
+    display: flex;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+}
+
+#msg-text {
+    width: 100vw;
+}

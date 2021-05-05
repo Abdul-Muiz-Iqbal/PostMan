@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostMan</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="intro">
+      <div class="username-input">
+          <p>Username</p>
+          <input type="text" name="" id="username">
+      </div>
+      <div class="servername-input">
+        <p>Server Name</p>
+        <input type="text" name="" id="servername">
+    </div>
+
+    <button type="submit" class="join">Join</button>
+
+    <p class="version">v1.5</p>
+    <button class="fa fa-gear info settings"></button>
+    <button class="fa fa-address-card info about"></button>
+  </div>
+
+  <div class="chat">
+    <div id="navbar">
+      <a href="#back" class="fa fa-arrow-left back"></a>
+      <p href="#name" class="decor-text">Server Name</a>
+    </div>
+
+    <div class="main-view">
+      <div class="member-pane">
+        <div id="online">3 Online</div>
+        <ul class="members">
+          <li class="member">Em Dash&nbsp;<b id="is-typing">typing...</b></li>
+          <li class="member">Alee</li>
+          <li class="member">Mahd</li>
+        </ul>
+      </div>
+
+      <div class="chat-pane">
+        <ul class="msgs">
+          <li>Alee</li>
+          <li>Mahd</li>
+        </ul>
+        <div class="sendstation">
+          <input type="text" id="#msg-text">
+          <button type="submit" class="fa fa-send"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./index.js"></script>
+</html>
