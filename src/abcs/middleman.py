@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Iterable
-from utils import Message, MessageId, AdvancedSearcher
+from utils import Message, MessageId, AdvancedSearcher, MetaData
 
 class MiddleMan(ABC):
     """Details the inteface a server should have for communication between users in PostMan."""
@@ -15,4 +15,14 @@ class MiddleMan(ABC):
 
     @abstractmethod
     def find(self, search_criteria: AdvancedSearcher) -> Iterable:
+        pass
+
+    @property
+    @abstractmethod
+    def metadata(self) -> MetaData:
+        pass
+
+    @metadata.setter
+    @abstractmethod
+    def metadata(self, m: MetaData):
         pass

@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional
-from utils import MessageId, Status, Author
+from utils import MessageId, Status, Member
 import arrow
 
 @dataclass
 class AdvancedSearcher:
     """Builder class for a Message allowing for advanced search capabilities."""
-    name: Optional[Author]
+    name: Optional[Member]
     content: Optional[str]
     id: Optional[MessageId]
     time_of_arrival: Optional[arrow.Arrow]

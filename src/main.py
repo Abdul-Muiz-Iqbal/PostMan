@@ -1,8 +1,7 @@
-from gui import PostMan
+from base import MongoServer
 
 def main() -> None:
-    """The main loop of PostMan. Loads the Gui."""
-    PostMan().loop()
+    pass
 
 if __name__ == '__main__':
     main()
