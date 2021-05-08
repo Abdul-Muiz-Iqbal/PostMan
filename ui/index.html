@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <div class="intro">
+  <div class="intro" style="display: none;">
       <div class="username-input">
           <p>Username</p>
           <input type="text" name="" id="username">
@@ -26,30 +26,46 @@
     <button class="fa fa-address-card info about"></button>
   </div>
 
-  <div class="chat">
+  <div class="chat" style="display: block;">
     <div id="navbar">
       <a href="#back" class="fa fa-arrow-left back"></a>
-      <p href="#name" class="decor-text">Server Name</a>
+      <p href="#name" class="decor-text">Friends Server</a>
     </div>
 
-    <div class="main-view">
-      <div class="member-pane">
-        <div id="online">3 Online</div>
-        <ul class="members">
-          <li class="member">Em Dash&nbsp;<b id="is-typing">typing...</b></li>
-          <li class="member">Alee</li>
-          <li class="member">Mahd</li>
+    <div class="chat-container">
+      <div class="member-list">
+        <ul class="list">
+          <li class="member">
+            <div class="about">
+              <div class="name">Em Dash -&nbsp;<b class="typing">typing</b></div>
+              <div class="status"><i class="online">Online</i></div>
+            </div>
+          </li>
+          <li class="member">
+            <div class="about">
+              <div class="name">Alee Azam</div>
+              <div class="status"><i class="online">Online</i></div>
+            </div>
+          </li>
         </ul>
       </div>
 
       <div class="chat-pane">
-        <ul class="msgs">
-          <li>Alee</li>
-          <li>Mahd</li>
-        </ul>
+        <div class="msgs">
+          <ul>
+            <li>
+              <div class="msg"><b class="author">Em Dash:&nbsp;</b>Hello</div>
+              <div class="msg"><b class="author">Alee Azam:&nbsp;</b>Hello Em!</div>
+              <div class="msg"><b class="author">Em Dash:&nbsp;</b>Wanna Work On Loco?</div>
+              <div class="msg"><b class="author">Alee Azam:&nbsp;</b>Nah, Studying.</div>
+              <div class="msg"><b class="author">Alee Azam:&nbsp;</b>You Should Too.</div>
+              <div class="msg"><b class="author">Muiz:&nbsp;</b>I want to kill you and then stuff your brain inside of a gopher's chest. Then I want to drink your blood while howling like a mother on black friday.</div>
+            </li>
+          </ul>
+        </div>
+
         <div class="sendstation">
-          <input type="text" id="#msg-text">
-          <button type="submit" class="fa fa-send"></button>
+          <textarea class="msg-to-send" name="" id="" cols="10" rows="1"></textarea>
         </div>
       </div>
     </div>
