@@ -1,5 +1,6 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from utils import Member, Status
+from typing import Any
 import arrow, cryptography.fernet as fernet
 
 @dataclass
@@ -12,9 +13,15 @@ class Message:
 
     def as_dict(self) -> dict[str, str]:
         """Converts self to a dictionary compatible with the middleman."""
-        return { field: str(value) for field, value in asdict(self).items() }
+        return {
+            'content': str(self.content),
+            'author': str(self.author),
+            'time_of_arrival': str(self.time_of_arrival),
+            'status': str(self.status)
+        }
 
-    def from_dict(self, d: dict[str, str]) -> 'Message':
+    @staticmethod
+    def from_dict(d: dict[str, Any]) -> 'Message':
         """Converts dictionary into self for deserialization."""
         return Message(
             content = d['content'],
@@ -23,21 +30,21 @@ class Message:
             status = d['status']
         )
 
-    def encrypted(self, key: str) -> 'Message':
+    def encrypted(self, key: bytes) -> 'Message':
         """Encrypts the content field of the message and returns a copy."""
         crypter = fernet.Fernet(key)
         return Message(
-            content = crypter.encrypt(self.content),
+            content = crypter.encrypt(self.content.encode()).decode('utf-8'),
             author = self.author,
             time_of_arrival = self.time_of_arrival,
             status = self.status 
         )
 
-    def decrypted(self, key: str) -> 'Message':
+    def decrypted(self, key: bytes) -> 'Message':
         """Decrypts the content field of the message and returns a copy."""
         crypter = fernet.Fernet(key)
         return Message(
-            content = crypter.decrypt(self.content),
+            content = crypter.decrypt(self.content.encode()).decode('utf-8'),
             author = self.author,
             time_of_arrival = self.time_of_arrival,
             status = self.status

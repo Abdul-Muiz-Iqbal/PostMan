@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostMan</title>
+  <style>
+:root {
+    background-color: #121212;
+    color: #cdccce;
+    /* box-sizing: border-box; */
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.intro {
+    display: flex;
+    /* display: none; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+input {
+    outline: none;
+    text-align: center;
+    background-color: #616161;
+    border: none;
+    border-radius: 4%;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+    padding: 6px 8px;
+    cursor: pointer;
+    background-color: #1d1d1d;
+    color: #cdccce;
+    outline: none;
+}
+
+button:hover {
+    background-color: #1a1a1a;
+}
+
+.join {
+    border: none;
+    margin-top: 25px;
+    font-size: large;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.version {
+    font-family: 'Courier New', Courier, monospace;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+}
+
+.info {
+    padding: 10px;
+    position: absolute;
+    border-radius: 25%;
+    border: none;
+}
+
+.about {
+    bottom: 0;
+    right: 0;
+}
+
+.settings {
+    bottom: 0;
+    right: 45px;
+}
+
+.chat-container {
+    display: flex;
+    margin: 0 auto;
+    background: #333;
+    border-radius: 5px;
+    height: 93vh;
+}
+
+.chat {
+    display: none;
+}
+
+#navbar {
+    overflow: hidden;
+    background-color: #333;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+.member-list {
+    width: 25%;
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    float: left;
+    border: 4px solid #1d1d1d;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    padding-bottom: 20px;
+    padding-bottom: 0;
+}
+
+.about {
+    float: left;
+    margin-top: 8px;
+    padding-left: 8px;
+}
+
+.status {
+    color: #92959E;
+}
+
+.chat-pane {
+    width: 100%;
+    background: #1a1a1a;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #434651;
+}
+
+.msgs {
+    padding: 15px 15px 10px;
+    overflow-y: auto;
+    height: 550px;
+    border: 4px solid #1d1d1d;
+    border-right: 0px;
+}
+
+.msg {
+    color: white;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    width: 90%;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid grey;
+    position: relative;
+}
+
+.sendstation {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}
+
+.msg-to-send {
+    width: 75%;
+    height: 1.4em;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    background-color: #616161;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font: 14px/22px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="intro">
+      <div class="username-input">
+          <p>Username</p>
+          <input type="text" name="" id="username">
+      </div>
+      <div class="servername-input">
+        <p>Server Name</p>
+        <input type="text" name="" id="servername">
+    </div>
+
+    <button type="submit" class="join">Join</button>
+
+    <p class="version">v1.5</p>
+    <button class="fa fa-gear info settings"></button>
+    <button class="fa fa-address-card info about"></button>
+  </div>
+
+  <div class="chat">
+    <div id="navbar">
+      <a href="#back" class="fa fa-arrow-left back"></a>
+      <p href="#name" class="decor-text">Friends Server</a>
+    </div>
+
+    <div class="chat-container">
+      <div class="member-list">
+        <ul class="list">
+        </ul>
+      </div>
+
+      <div class="chat-pane">
+        <div class="msgs">
+          <ul>
+          </ul>
+        </div>
+
+        <div class="sendstation">
+          <textarea class="msg-to-send" name="" id="" cols="10" rows="1"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+const JoinBtn = document.querySelector(".join");
+const SettingsBtn = document.querySelector(".settings");
+const AboutBtn = document.querySelector(".about");
+
+const ChatScreen = document.querySelector(".chat");
+const IntroScreen = document.querySelector(".intro");
+
+const UserNameInp = document.querySelector("#username");
+const ServerNameInp = document.querySelector("#servername");
+
+const ServerNameLbl = document.querySelector(".decor-text");
+const MembersLst = document.querySelector(".list");
+const MsgsContainer = document.querySelector(".msgs ul");
+
+const NewMsgBody = document.querySelector(".msg-to-send");
+const BackBtn = document.querySelector(".back");
+
+let metadata;
+
+JoinBtn.addEventListener('click', async _ => {
+  let username = UserNameInp.value;
+  let servername = ServerNameInp.value;
+  
+  // Presence Check
+  if (username && servername) {
+    if (isValid(servername)) {
+      pywebview.api.initializeServer(servername, username).then(async _ => {
+        await pywebview.api.setMetadata({
+          'server_name': (await pywebview.api.getMetadata()).server_name,
+          'members': (await pywebview.api.getMetadata()).members.concat([username])
+        });
+
+        IntroScreen.style.display = "none";
+        ChatScreen.style.display = "block";
+        ServerNameLbl.innerText = (await pywebview.api.getMetadata()).server_name
+        BackBtn.addEventListener('click', async _ => {
+          await pywebview.api.setMetadata({
+            'server_name': (await pywebview.api.getMetadata()).server_name,
+            'members': (await pywebview.api.getMetadata()).members.filter(member => member !== username)
+          });
+          ChatScreen.style.display = "none";
+          IntroScreen.style.display = "block";
+        });
+
+        // Set Timers
+        // Check MetaData
+        setInterval(async () => {
+          // If the metadata was changed, show updated version.
+          pywebview.api.getMetadata().then(md => {
+            if (md.server_name != metadata.server_name || arraysEqual(md.members, metadata.members)) {
+              metadata = md;
+              ServerNameLbl.innerText = metadata.server_name;
+              for (let i = 0; i < metadata.members.length; i++) {
+                /*
+                <li class="member">
+                    <div class="about">
+                      <div class="name">Em Dash -&nbsp;<b class="typing">typing</b></div>
+                      <div class="status"><i class="online">Online</i></div>
+                    </div>
+                  </li>
+                */
+                let member = document.createElement("li");
+                member.className = "member";
+                let about = document.createElement("div");
+                about.className = "about";
+                let name = document.createElement("div");
+                name.className = "name";
+                name.innerText = metadata.members[i];
+                let status = document.createElement("div");
+                status.className = "status";
+                let online = document.createElement("i");
+                online.className = "online";
+                online.innerText = "Online";
+                status.appendChild(online);
+                about.appendChild(name);
+                about.appendChild(status);
+                member.appendChild(about);
+                MembersLst.appendChild(member);
+              }
+            }
+          }); 
+        }, 250);
+
+        // Check Messages
+        setInterval(async () => {
+          const Messages = document.querySelectorAll(".msg");
+          pywebview.api.getMessages().then(msgs => {
+            if (msgs.length != Messages.length) {
+              for (var i = Messages.length; i < msgs.length; i++) {
+                let author = msgs[i].author;
+                let content = msgs[i].content;
+                // <div class="msg"><b class="author">Em Dash:&nbsp;</b>Hello</div>
+                let msg = document.createElement("li");
+                let div = document.createElement("div");
+                div.className = "msg";
+                let name = document.createElement("b");
+                name.className = "author";
+                name.innerText = `${author}: `;
+                div.appendChild(name);
+                div.appendChild(document.createTextNode(content));
+                msg.appendChild(div);
+
+                MsgsContainer.appendChild(msg);
+              }
+            }
+          });
+        }, 250);
+
+        NewMsgBody.addEventListener('keypress', async _ => {
+          let key = window.event.keyCode;
+
+          // If the user has pressed enter
+          if (key === 13 && NewMsgBody.value) {
+            pywebview.api.sendMessage({
+              'content': NewMsgBody.value,
+              'author': username
+            }).then(() => {});
+            NewMsgBody.value = "";
+          }
+        });
+      });
+      }
+  }
+});
+
+const isUnique = async username => {
+  return pywebview.api.getMetadata().then(metadata => {
+    return metadata.members.contains(username);
+  });
+};
+
+const isValid = async servername => {
+  return pywebview.api.isValidUri(servername).then(bool => {
+    return bool;
+  });
+};
+
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+</script>
+</html>

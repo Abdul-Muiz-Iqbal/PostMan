@@ -1,1 +1,1 @@
-from .PostMan import PostMan
+from .PostMan import PostMan, PrimitiveApi

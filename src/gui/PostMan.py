@@ -1,80 +1,62 @@
-import PySimpleGUI as sg
 from base import MongoServer
-from utils import Message, Status
+from utils import Message, Status, MetaData
 import arrow, threading
+import webview, arrow
+
+class PrimitiveApi():
+
+    def __init__(self):
+        self.server = None
+        self.username = None
+
+    def getMetadata(self) -> dict[str, str]:
+        if self.server is None:
+            self.initializeServer()
+
+        m = self.server.metadata
+        return {
+            'members': list(map(str, m.members)),
+            'server_name': m.server_name
+        }
+
+    def setMetadata(self, m: dict[str, str]):
+        if self.server is None:
+            self.initializeServer()
+        self.server.metadata = MetaData(
+            members = m['members'],
+            server_name = m['server_name']
+        )
+
+    def isValidUri(uri: str):
+        try:
+            self.server = MongoServer(uri = uri, database = 'PostMan', collection = 'Messages')
+            return True
+        except e:
+            return False
+
+    def getMessages(self) -> list[dict[str, str]]:
+        if self.server is None:
+            self.initializeServer()
+
+        msgs = list(map(lambda msg: {
+                'content': msg['content'], 'author': msg['author']
+            }, list(self.server.msgs.find())))
+        return msgs
+
+    def initializeServer(self, servername: str, username: str = None):
+        if username is not None:
+            self.username = username
+        self.server = MongoServer(uri=servername, database='PostMan', collection='Messages')
+
+    def sendMessage(self, msg: dict[str, str]):
+        msg['time_of_arrival'] = arrow.utcnow()
+        msg['status'] = Status.Unread
+        self.server.add(Message.from_dict(msg))
 
 class PostMan:
-    """Please Don't Roast My Gui Code."""
-
-    def __init__(self) -> None:
-        self.window = sg.Window('PostMan', self.layout())
-        self.mongo = None
-
-    def layout(self):
-        return [
-            [sg.Column([
-                [sg.Text("Enter Your UserName For This Session:")],
-                [sg.Input(key='username')],
-                [sg.Text("Enter A Public Server Url:")],
-                [sg.Input(key='server_uri')],
-                [sg.Button('Join')]
-            ], key='-COL1-')],
-            [sg.Column([
-                [sg.Text('Server Chatting', size=(40, 1))],
-                [sg.Output(size=(110, 30), font=('Helvetica 10'), key='-OUTPUT-')],
-                [
-                    sg.MLine(size=(60, 5), enter_submits=True, key='-QUERY-', do_not_clear=False),
-                    sg.Button('SEND', bind_return_key=True)
-                ]
-            ], visible=False, key='-COL2-')]
-        ]
-
-    def loop(self):
-        firsttime = True
-        displayed = []
-
-        def look_for_msgs():
-            while True:
-                if self.mongo:
-                    # Default, Update with new msgs
-                    for msg in self.mongo.msgs.find():
-                        if msg['_id'] not in displayed:
-                            displayed.append(msg['_id'])
-                            print(f"{msg['author']} :: {msg['content']}")
-            
-                    self.window.Refresh()
-        t = threading.Thread( target=look_for_msgs )
-        t.start()
-
-        while True:
-            event, values = self.window.read()
-
-            if event == sg.WINDOW_CLOSED or event == 'Quit':
-                break
-
-            if event == 'Join':
-                self.username = values['username']
-                self.mongo = MongoServer(
-                    values['server_uri'],
-                    'PostMan', 'Messages'
-                )
-                self.window['-COL1-'].update(visible=False)
-                self.window['-COL2-'].update(visible=True)
-
-                if firsttime:
-                    print('')
-                    firsttime = False
-            
-            if event == 'SEND':
-                query: str = values['-QUERY-'].rstrip()
-                msg = Message(
-                    content = query,
-                    author = self.username,
-                    time_of_arrival = arrow.utcnow(),
-                    status = Status.Unread
-                )
-                self.mongo.add(msg)
-
-                
-
-        self.window.close()
+    def __init__(self):
+        with open('ui/main.html', 'r') as f:
+            html = f.read()
+            api = PrimitiveApi()
+            webview.create_window('PostMan', html = html, js_api=api)
+            webview.start(debug=True)
